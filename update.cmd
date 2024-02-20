@@ -1,0 +1,1 @@
+npm run build && aws s3 sync out s3://red-cabinet && aws cloudfront create-invalidation --distribution-id EZ04G6SQW6HLD --paths "/*"
