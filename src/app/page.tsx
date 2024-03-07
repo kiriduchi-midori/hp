@@ -3,6 +3,10 @@ import Image from "next/image";
 
 const className = `text-center`;
 const h2 = `text-3xl pt-8 pb-8`;
+const linkOption = {
+  target: "_blank",
+  rel: "noopener noreferrer"
+};
 
 function Header() {
   return (
@@ -35,7 +39,11 @@ function Author() {
         🎂: Oct, 9th | 🗨: 日本語, English
       </p>
 
-      <Link href="/data/pubkey.asc" className={`text-xs`}>
+      <Link
+        href="/data/pubkey.asc"
+        className={`text-xs`}
+        {...linkOption}
+      >
         🔑 AC698 7DD9C 4A0AC A4046 44F1A E626E 4E564 57BE3 3B497 04844
       </Link>
     </section>
@@ -49,7 +57,10 @@ function Contact() {
         contact
       </h2>
 
-      <Link href="mailto:kiriduchi.midori@red-cabinet.net">
+      <Link
+        href="mailto:kiriduchi.midori@red-cabinet.net"
+        {...linkOption}
+      >
         ✉️ kiriduchi.midori@red-cabinet.net
       </Link>
     </section>
@@ -63,7 +74,10 @@ function LinkList() {
         link
       </h2>
 
-      <Link href="https://github.com/kiriduchi-midori/diary">
+      <Link
+        href="https://github.com/kiriduchi-midori/diary"
+        {...linkOption}
+      >
         diary
       </Link>
     </section>
