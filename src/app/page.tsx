@@ -67,29 +67,11 @@ function Contact() {
   );
 }
 
-function LinkList() {
-  return (
-    <section>
-      <h2 className={h2}>
-        link
-      </h2>
-
-      <Link
-        href="https://github.com/kiriduchi-midori/diary"
-        {...linkOption}
-      >
-        diary
-      </Link>
-    </section>
-  );
-}
-
 function Main() {
   return (
     <main className={`pt-8 pb-8`}>
       <Author />
       <Contact />
-      <LinkList />
     </main>
   );
 }
@@ -97,7 +79,7 @@ function Main() {
 function Footer() {
   return (
     <footer className={`${className} text-xs`} style={{ color: "#ff2222" }}>
-      since 2023.03 © red-cabinet.net v3.0.1
+      since 2023.03 © red-cabinet.net v3.0.2
     </footer>
   );
 }
