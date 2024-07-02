@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  overflow-y: scroll;
+  background-image: url('./noise.png');
+}
+
+.h2 {
+  border-left: 1px solid;
+  padding-left: 1rem;
+}
+
+a {
+  text-decoration: underline;
+  display: inline-block;
+}
