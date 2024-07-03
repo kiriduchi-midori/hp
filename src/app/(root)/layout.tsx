@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`flex flex-col p-8 max-w-screen-md mx-auto ${FigtreeFont.className}`}>
+      <body className={`pl-8 pr-8 max-w-screen-md mx-auto ${FigtreeFont.className}`}>
         {children}
       </body>
     </html>

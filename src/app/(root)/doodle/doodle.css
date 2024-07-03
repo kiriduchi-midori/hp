@@ -1,0 +1,18 @@
+
+:root {
+  --border-color: #e4dcd8;
+}
+
+.main {
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.hr {
+  border-top: 1px solid var(--border-color);
+}
+
+.doodle-img {
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
