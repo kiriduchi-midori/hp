@@ -37,7 +37,4 @@ next-env.d.ts
 
 update.cmd
 
-src/app/(root)/log/diary*
-public/data/api/diary*
-public/sitemap-0.xml
-public/sitemap.xml
+src/app/(root)/doodle/doodle.json

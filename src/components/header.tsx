@@ -4,7 +4,7 @@ type Props = {
 
 export function Header({title}: Props) {
   return (
-    <header className="text-center pb-8">
+    <header className="text-center pb-8 pt-8">
       <h1 className="text-4xl">
         {title}
       </h1>

@@ -76,6 +76,14 @@ function Links() {
       <ul className="list-disc list-inside">
         <li>
           <Link
+            href="/doodle/"
+            {...linkOption}
+          >
+            doodle
+          </Link>
+        </li>
+        <li>
+          <Link
             href="https://github.com/kiriduchi-midori/hp"
             {...linkOption}
           >
