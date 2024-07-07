@@ -1,10 +1,10 @@
 {
   "name": "hp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node tool\\setup.js && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

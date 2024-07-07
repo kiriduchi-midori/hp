@@ -17,7 +17,7 @@ db.all("select * from contents order by created_at desc", (err, rows) => {
     res.push(row);
   }
 
-  fs.writeFileSync(path.join("src", "app", "(root)", "doodle", "doodle.json"), JSON.stringify(res));
+  fs.writeFileSync(path.join(process.env.RED_CABINET_ASSET, "doodle.json"), JSON.stringify(res));
 });
 
 db.close();

@@ -57,9 +57,6 @@ function Contact() {
       >
         ✉️ kiriduchi.midori@red-cabinet.net
       </Link>
-      <p>
-        I don&#39;t read any messages via SNS. Please email me if you want.
-      </p>
     </section>
   );
 }
