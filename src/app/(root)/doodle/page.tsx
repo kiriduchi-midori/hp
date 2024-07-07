@@ -56,7 +56,7 @@ export default function Page() {
   const [article, setArticle] = useState([<></>]);
   useEffect(() => {
     (async () => {
-      const res = await fetch("/data/doodle.json");
+      const res = await fetch("/assets/doodle.json");
       if (!res.ok) {
         setArticle([<>something error happened 🤔</>]);
         return;
