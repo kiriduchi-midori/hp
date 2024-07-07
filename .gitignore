@@ -37,4 +37,4 @@ next-env.d.ts
 
 update.cmd
 
-src/app/(root)/doodle/doodle.json
+public/data/doodle.json

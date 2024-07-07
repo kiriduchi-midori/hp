@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import json from "./doodle.json";
+import { useEffect, useState } from "react";
 
 const linkOption = {
   target: "_blank",
@@ -53,28 +53,41 @@ function toArticle(data: any) {
 }
 
 export default function Page() {
-  const array = json.map((e, i) => {
-    if (i < json.length - 1) {
-      return (
-        <>
-          {toArticle(e)}
-          <hr className="hr" />
-        </>
+  const [article, setArticle] = useState([<></>]);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/data/doodle.json");
+      if (!res.ok) {
+        setArticle([<>something error happened 🤔</>]);
+        return;
+      }
+      const json: [] = await res.json();
+      setArticle(
+        json.map((e, i) => {
+          if (i < json.length - 1) {
+            return (
+              <>
+                {toArticle(e)}
+                <hr className="hr" />
+              </>
+            );
+          } else {
+            return (
+              <>
+                {toArticle(e)}
+              </>
+            );
+          }
+        })
       );
-    } else {
-      return (
-        <>
-          {toArticle(e)}
-        </>
-      );
-    }
-  });
+    })();
+  }, []);
 
   return (
     <>
       <Header title="doodle" />
       <main className="main">
-        {<>{...array}</>}
+        {<>{...article}</>}
       </main>
       <Footer />
     </>
