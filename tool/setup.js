@@ -14,6 +14,10 @@ db.all("select * from contents order by created_at desc", (err, rows) => {
   for (const row of rows) {
     row.files = JSON.parse(row.files);
     row.tags = JSON.parse(row.tags);
+    row.created_at = `${new Date(`${row.created_at}z`).toLocaleDateString('sv')} ${new Date(`${row.created_at}z`).toLocaleTimeString('sv')}`;
+    if (row.updated_at) {
+      row.updated_at = `${new Date(`${row.updated_at}z`).toLocaleDateString('sv')} ${new Date(`${row.updated_at}z`).toLocaleTimeString('sv')}`;
+    }
     res.push(row);
   }
 
