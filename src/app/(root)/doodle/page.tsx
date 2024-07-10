@@ -71,7 +71,7 @@ function toArticle(data: any) {
 }
 
 export default function Page() {
-  const [article, setArticle] = useState([<></>]);
+  const [article, setArticle] = useState([<>loading...</>]);
   useEffect(() => {
     (async () => {
       const res = await fetch("/assets/doodle.json");
