@@ -10,8 +10,13 @@ const linkOption = {
   rel: "noopener noreferrer",
 };
 
-function toArticle(data: any) {
+type Props = {
+  data: any;
+}
+
+function Article({data}: Props) {
   let images = <></>;
+  const [pos, setPos] = useState(0);
   if (data.object_type === "illust") {
     images = (
       <Link
@@ -29,24 +34,37 @@ function toArticle(data: any) {
     );
   }
   if (data.object_type === "manga") {
-    const array = [];
-    for (let i = 0; i < data.files.s.length; i++) {
-      array.push(
-        <Link
-          href={`/assets/${data.uuid}/${data.files.m[i].name}`}
-          {...linkOption}
-        >
-          <Image
-            className="doodle-img"
-            src={`/assets/${data.uuid}/${data.files.s[i].name}`}
-            alt={data.files.s[i].name}
-            width={data.files.s[i].w}
-            height={data.files.s[i].h}
-          />
-        </Link>
-      );
-    }
-    images = <>{...array}</>;
+    images = (
+      <span style={{position: 'relative'}}>
+        <div
+          className="button"
+          style={{
+            left: '0',
+            paddingRight: '5rem',
+            opacity: pos !== data.files.s.length - 1 ? 1 : 0,
+          }}
+          onClick={() => setPos((prev) => prev + 1 < data.files.s.length ? prev + 1 : prev)}
+        />
+        <div
+          className="button"
+          style={{
+            right: '0',
+            paddingLeft: '5rem',
+            opacity: pos === 0 ? 0 : 1, 
+          }}
+          onClick={() => setPos((prev) => prev - 1 >= 0 ? prev - 1 : prev)}
+        />
+        <Image
+          className="doodle-img"
+          src={`/assets/${data.uuid}/${data.files.s[pos].name}`}
+          alt={data.files.s[pos].name}
+          width={data.files.s[pos].w}
+          height={data.files.s[pos].h}
+          onClick={() => window.open(`/assets/${data.uuid}/${data.files.m[pos].name}`, '_blank')}
+          style={{ zIndex: 0, cursor: 'pointer', }}
+        />
+      </span>
+    );
   }
 
   return (
@@ -85,14 +103,14 @@ export default function Page() {
           if (i < json.length - 1) {
             return (
               <>
-                {toArticle(e)}
+                <Article data={e} />
                 <hr className="hr" />
               </>
             );
           } else {
             return (
               <>
-                {toArticle(e)}
+                <Article data={e} />
               </>
             );
           }
