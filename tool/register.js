@@ -87,6 +87,7 @@ const main = async(db) => {
             }
             else if (object_type === "manga") {
               const l = [], m = [], s = [];
+              files.sort((a, b) => (a < b ? -1 : 1));
               for (const file of files) {
                 if (/thumb\.png/.test(file)) {
                   thumb = "thumb.png";
