@@ -65,10 +65,8 @@ const main = async(db) => {
             rl.close();
 
             db.all(
-              `insert into contents(
-                uuid, title, description, tags, files) values (
-                '${uuid}', '${title}', '${description}', '${tagsJson}', '${filesJson}'
-              )`,
+              `insert into contents(uuid, title, description, tags, files) values (?,?,?,?,?)`,
+              [uuid, title, description, tagsJson, filesJson],
               (err, res) => {
                 if (err) {
                   console.error(err);
