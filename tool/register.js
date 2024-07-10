@@ -80,9 +80,4 @@ const main = async(db) => {
 }
 
 const db = new sqlite3.Database(process.env.SQLITE3_RED_CABINET);
-process.on('exit', () => db.close());
-process.on('SIGINT', () => db.close());
-process.on('SIGUSR1', () => db.close());
-process.on('SIGUSR2', () => db.close());
-process.on('uncaughtException', () => db.close());
 main(db);
