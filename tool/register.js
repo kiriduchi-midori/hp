@@ -44,6 +44,9 @@ const main = async(db) => {
 
             const images = [];
             for (const file of files) {
+              if (/thumb\.png/.test(file)) {
+                continue;
+              }
               if (/png$/.test(file)) {
                 const s = sizeOf(path.join(dirPath, file));
                 images.push({ name: file, w: s.width, h: s.height });
