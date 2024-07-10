@@ -43,8 +43,10 @@ const main = async(db) => {
             }
 
             const images = [];
+            let thumb = null;
             for (const file of files) {
               if (/thumb\.png/.test(file)) {
+                thumb = "thumb.png";
                 continue;
               }
               if (/png$/.test(file)) {
@@ -65,8 +67,8 @@ const main = async(db) => {
             rl.close();
 
             db.all(
-              `insert into contents(uuid, title, description, tags, files) values (?,?,?,?,?)`,
-              [uuid, title, description, tagsJson, filesJson],
+              `insert into contents(uuid, title, description, tags, files, thumb) values (?,?,?,?,?,?)`,
+              [uuid, title, description, tagsJson, filesJson, thumb],
               (err, res) => {
                 if (err) {
                   console.error(err);
