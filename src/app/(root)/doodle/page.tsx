@@ -11,14 +11,43 @@ const linkOption = {
 };
 
 function toArticle(data: any) {
-  if (data.object_type !== "illust") {
-    console.error(data.uuid, 'is not illuist');
-    return <></>;
+  let images = <></>;
+  if (data.object_type === "illust") {
+    images = (
+      <Link
+        href={`/assets/${data.uuid}/${data.files[1].name}`}
+        {...linkOption}
+      >
+        <Image
+          className="doodle-img"
+          src={`/assets/${data.uuid}/${data.files[0].name}`}
+          alt={data.uuid}
+          width={data.files[0].w}
+          height={data.files[0].h}
+        />
+      </Link>
+    );
   }
-
-  let key = "", keyLink = "";
-  for (const k in data.files[0]) key = k;
-  for (const k in data.files[1]) keyLink = k;
+  if (data.object_type === "manga") {
+    const array = [];
+    for (let i = 0; i < data.files.s.length; i++) {
+      array.push(
+        <Link
+          href={`/assets/${data.uuid}/${data.files.m[i].name}`}
+          {...linkOption}
+        >
+          <Image
+            className="doodle-img"
+            src={`/assets/${data.uuid}/${data.files.s[i].name}`}
+            alt={data.files.s[i].name}
+            width={data.files.s[i].w}
+            height={data.files.s[i].h}
+          />
+        </Link>
+      );
+    }
+    images = <>{...array}</>;
+  }
 
   return (
     <article key={data.uuid} className="flex flex-col p-4">
@@ -31,19 +60,8 @@ function toArticle(data: any) {
       <span className="pb-4 text-xl">
         {data.title}
       </span>
-      <span className="mx-auto pb-4">
-        <Link
-          href={`/assets/${data.uuid}/${keyLink}`}
-          {...linkOption}
-        >
-          <Image
-            className="doodle-img"
-            src={`/assets/${data.uuid}/${key}`}
-            alt={data.uuid}
-            width={data.files[0][key].w}
-            height={data.files[0][key].h}
-          />
-        </Link>
+      <span className="mx-auto pb-4 flex flex-col">
+        {images}
       </span>
       <span>
         {data.description}
@@ -53,7 +71,7 @@ function toArticle(data: any) {
 }
 
 export default function Page() {
-  const [article, setArticle] = useState([<></>]);
+  const [article, setArticle] = useState([<>loading...</>]);
   useEffect(() => {
     (async () => {
       const res = await fetch("/assets/doodle.json");

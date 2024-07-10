@@ -29,7 +29,7 @@ function Author() {
       </div>
 
       <p>
-        🎂: Oct, 9th | 🗨: 日本語, English | 🔏: <> </>
+        🎂: Oct, 9th | 🗨: 日本語, English | 💼: swe | 🔏: <> </>
         <Link
           href="/data/pubkey.asc"
           {...linkOption}
