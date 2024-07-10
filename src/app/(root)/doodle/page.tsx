@@ -11,9 +11,42 @@ const linkOption = {
 };
 
 function toArticle(data: any) {
-  if (data.object_type !== "illust") {
-    console.error(data.uuid, 'is not illuist');
-    return <></>;
+  let images = <></>;
+  if (data.object_type === "illust") {
+    images = (
+      <Link
+        href={`/assets/${data.uuid}/${data.files[1].name}`}
+        {...linkOption}
+      >
+        <Image
+          className="doodle-img"
+          src={`/assets/${data.uuid}/${data.files[0].name}`}
+          alt={data.uuid}
+          width={data.files[0].w}
+          height={data.files[0].h}
+        />
+      </Link>
+    );
+  }
+  if (data.object_type === "manga") {
+    const array = [];
+    for (let i = 0; i < data.files.s.length; i++) {
+      array.push(
+        <Link
+          href={`/assets/${data.uuid}/${data.files.m[i].name}`}
+          {...linkOption}
+        >
+          <Image
+            className="doodle-img"
+            src={`/assets/${data.uuid}/${data.files.s[i].name}`}
+            alt={data.files.s[i].name}
+            width={data.files.s[i].w}
+            height={data.files.s[i].h}
+          />
+        </Link>
+      );
+    }
+    images = <>{...array}</>;
   }
 
   return (
@@ -28,18 +61,7 @@ function toArticle(data: any) {
         {data.title}
       </span>
       <span className="mx-auto pb-4">
-        <Link
-          href={`/assets/${data.uuid}/${data.files[1].name}`}
-          {...linkOption}
-        >
-          <Image
-            className="doodle-img"
-            src={`/assets/${data.uuid}/${data.files[0].name}`}
-            alt={data.uuid}
-            width={data.files[0].w}
-            height={data.files[0].h}
-          />
-        </Link>
+        {images}
       </span>
       <span>
         {data.description}
