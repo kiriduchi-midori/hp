@@ -46,10 +46,10 @@ const main = async(db) => {
             for (const file of files) {
               if (/png$/.test(file)) {
                 const s = sizeOf(path.join(dirPath, file));
-                images.push({ fname: file, w: s.width, h: s.height });
+                images.push({ name: file, w: s.width, h: s.height });
               }
             }
-            const filesJson = JSON.stringify(images.sort((a, b) => ((a.w > b.w) && (a.h > b.h)) ? 1 : -1).map(e => { return { [e.fname]: { w: e.w, h: e.h } } }));
+            const filesJson = JSON.stringify(images.sort((a, b) => ((a.w > b.w) && (a.h > b.h)) ? 1 : -1));
 
             console.log("dir:", uuid);
             const rl = readline.createInterface({

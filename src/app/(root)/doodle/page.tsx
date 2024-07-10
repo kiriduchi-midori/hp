@@ -16,10 +16,6 @@ function toArticle(data: any) {
     return <></>;
   }
 
-  let key = "", keyLink = "";
-  for (const k in data.files[0]) key = k;
-  for (const k in data.files[1]) keyLink = k;
-
   return (
     <article key={data.uuid} className="flex flex-col p-4">
       <span className="flex flex-row">
@@ -33,15 +29,15 @@ function toArticle(data: any) {
       </span>
       <span className="mx-auto pb-4">
         <Link
-          href={`/assets/${data.uuid}/${keyLink}`}
+          href={`/assets/${data.uuid}/${data.files[1].name}`}
           {...linkOption}
         >
           <Image
             className="doodle-img"
-            src={`/assets/${data.uuid}/${key}`}
+            src={`/assets/${data.uuid}/${data.files[0].name}`}
             alt={data.uuid}
-            width={data.files[0][key].w}
-            height={data.files[0][key].h}
+            width={data.files[0].w}
+            height={data.files[0].h}
           />
         </Link>
       </span>
