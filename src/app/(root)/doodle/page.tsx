@@ -60,7 +60,7 @@ function toArticle(data: any) {
       <span className="pb-4 text-xl">
         {data.title}
       </span>
-      <span className="mx-auto pb-4">
+      <span className="mx-auto pb-4 flex flex-col">
         {images}
       </span>
       <span>
