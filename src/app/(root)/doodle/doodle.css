@@ -18,3 +18,15 @@
   border-radius: 0.5rem;
   border: 1px solid var(--border-color);
 }
+
+.button {
+  background-color: #88888833;
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-radius: 100%;
+}
