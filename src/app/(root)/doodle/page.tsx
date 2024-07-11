@@ -74,7 +74,7 @@ function Article({data}: Props) {
   if (data.nsfw) {
     nsfw = (
       <span className="nsfw text-xs">
-        "nsfw"
+        nsfw
       </span>
     );
   }
