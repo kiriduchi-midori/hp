@@ -30,3 +30,28 @@
   cursor: pointer;
   border-radius: 100%;
 }
+
+.page-navi {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #f3f3f3;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  z-index: 1;
+}
+
+.nsfw {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  color: white;
+  background-color: #ff8888;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  z-index: 1;
+}

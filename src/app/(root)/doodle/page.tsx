@@ -54,6 +54,9 @@ function Article({data}: Props) {
           }}
           onClick={() => setPos((prev) => prev - 1 >= 0 ? prev - 1 : prev)}
         />
+        <span className="text-xs page-navi">
+          pages: {pos + 1} / {data.files.s.length}
+        </span>
         <Image
           className="doodle-img"
           src={`/assets/${data.uuid}/${data.files.s[pos].name}`}
@@ -63,6 +66,15 @@ function Article({data}: Props) {
           onClick={() => window.open(`/assets/${data.uuid}/${data.files.m[pos].name}`, '_blank')}
           style={{ zIndex: 0, cursor: 'pointer', }}
         />
+      </span>
+    );
+  }
+
+  let nsfw = <></>;
+  if (data.nsfw) {
+    nsfw = (
+      <span className="nsfw text-xs">
+        "nsfw"
       </span>
     );
   }
@@ -78,7 +90,8 @@ function Article({data}: Props) {
       <span className="pb-4 text-xl">
         {data.title}
       </span>
-      <span className="mx-auto pb-4 flex flex-col">
+      <span className="mx-auto pb-4 flex flex-col" style={{ position: 'relative' }}>
+        {nsfw}
         {images}
       </span>
       <span>
