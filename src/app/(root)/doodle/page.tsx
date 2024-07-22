@@ -14,9 +14,99 @@ type Props = {
   data: any;
 }
 
-function Article({data}: Props) {
-  let images = <></>;
+const ArticleTemplate = (
+  data: any,
+  buttons: JSX.Element,
+  navi: JSX.Element,
+  nsfw: JSX.Element,
+  image: JSX.Element,
+  description: JSX.Element
+) => (
+  <article key={data.uuid} className="flex flex-col p-4">
+    <span className="flex flex-row">
+      <span className="grow" />
+      <span className="text-xs pr-4">
+        {data.tags.map((e: any) => `#${e}`).join(', ')}
+      </span>
+      <span className="text-xs">
+        {data.created_at}
+      </span>
+    </span>
+    <span className="pb-4 text-xl">
+      {data.title}
+    </span>
+    <span className="mx-auto pb-4 flex flex-col" style={{ position: 'relative' }}>
+      <span style={{ position: 'relative' }}>
+        {buttons}
+        {navi}
+        {nsfw}
+        {image}
+      </span>
+    </span>
+    {description}
+  </article>
+);
+
+function Nsfw({ data }: Props) {
+  const navi = data.object_type === "manga" ? (
+    <span className="text-xs page-navi">
+      pages: 1 / {data.files.s.length}
+    </span>
+  ) : <></>;
+  const button = (
+    <div
+      className="button"
+      style={{
+        left: '0',
+        paddingRight: '5rem',
+        opacity: 1,
+      }}
+      onClick={() => setElement(<><Article data={data} /></>)}
+    />
+  );
+  const image = (
+    <Image
+      className="doodle-img"
+      src="/data/nsfwIcon.jpg"
+      alt="nsfw"
+      width={434}
+      height={614}
+      style={{ zIndex: 0 }}
+    />
+  );
+  const nsfw = <></>;
+  const description = <></>;
+  const [element, setElement] = useState(
+    ArticleTemplate(data, button, navi, nsfw, image, description)
+  );
+
+  return (
+    <>
+      {element}
+    </>
+  );
+}
+
+function Article({ data }: Props) {
   const [pos, setPos] = useState(0);
+  let buttons = <></>;
+  let navi = <></>;
+  let images = <></>;
+  let nsfw = <></>;
+  const description = (
+    <span>
+      {data.description}
+    </span>
+  );
+
+  if (data.nsfw) {
+    nsfw = (
+      <span className="nsfw text-xs">
+        nsfw
+      </span>
+    );
+  }
+
   if (data.object_type === "illust") {
     images = (
       <Link
@@ -34,8 +124,8 @@ function Article({data}: Props) {
     );
   }
   if (data.object_type === "manga") {
-    images = (
-      <span style={{position: 'relative'}}>
+    buttons = (
+      <>
         <div
           className="button"
           style={{
@@ -50,55 +140,33 @@ function Article({data}: Props) {
           style={{
             right: '0',
             paddingLeft: '5rem',
-            opacity: pos === 0 ? 0 : 1, 
+            opacity: pos === 0 ? 0 : 1,
           }}
           onClick={() => setPos((prev) => prev - 1 >= 0 ? prev - 1 : prev)}
         />
-        <span className="text-xs page-navi">
-          pages: {pos + 1} / {data.files.s.length}
-        </span>
-        <Image
-          className="doodle-img"
-          src={`/assets/${data.uuid}/${data.files.s[pos].name}`}
-          alt={data.files.s[pos].name}
-          width={data.files.s[pos].w}
-          height={data.files.s[pos].h}
-          onClick={() => window.open(`/assets/${data.uuid}/${data.files.m[pos].name}`, '_blank')}
-          style={{ zIndex: 0, cursor: 'pointer', }}
-        />
+      </>
+    );
+
+    navi = (
+      <span className="text-xs page-navi">
+        pages: {pos + 1} / {data.files.s.length}
       </span>
+    );
+    
+    images = (
+      <Image
+        className="doodle-img"
+        src={`/assets/${data.uuid}/${data.files.s[pos].name}`}
+        alt={data.files.s[pos].name}
+        width={data.files.s[pos].w}
+        height={data.files.s[pos].h}
+        onClick={() => window.open(`/assets/${data.uuid}/${data.files.m[pos].name}`, '_blank')}
+        style={{ zIndex: 0, cursor: 'pointer', }}
+      />
     );
   }
 
-  let nsfw = <></>;
-  if (data.nsfw) {
-    nsfw = (
-      <span className="nsfw text-xs">
-        nsfw
-      </span>
-    );
-  }
-
-  return (
-    <article key={data.uuid} className="flex flex-col p-4">
-      <span className="flex flex-row">
-        <span className="grow" />
-        <span className="text-xs">
-          {data.created_at}
-        </span>
-      </span>
-      <span className="pb-4 text-xl">
-        {data.title}
-      </span>
-      <span className="mx-auto pb-4 flex flex-col" style={{ position: 'relative' }}>
-        {nsfw}
-        {images}
-      </span>
-      <span>
-        {data.description}
-      </span>
-    </article>
-  );
+  return ArticleTemplate(data,buttons,navi,nsfw,images,description);
 }
 
 export default function Page() {
@@ -112,18 +180,19 @@ export default function Page() {
       }
       const json: [] = await res.json();
       setArticle(
-        json.map((e, i) => {
+        json.map((e:any, i) => {
+          const article = e.nsfw === 0 ? <Article data={e} /> : <Nsfw data={e} />;
           if (i < json.length - 1) {
             return (
               <>
-                <Article data={e} />
+                {article}
                 <hr className="hr" />
               </>
             );
           } else {
             return (
               <>
-                <Article data={e} />
+                {article}
               </>
             );
           }
